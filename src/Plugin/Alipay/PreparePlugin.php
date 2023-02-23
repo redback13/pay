@@ -10,6 +10,7 @@ use Yansongda\Pay\Contract\PluginInterface;
 use Yansongda\Pay\Exception\Exception;
 use Yansongda\Pay\Exception\InvalidConfigException;
 
+use function Yansongda\Pay\get_public_cert;
 use function Yansongda\Pay\get_alipay_config;
 use function Yansongda\Pay\get_tenant;
 
@@ -107,7 +108,7 @@ class PreparePlugin implements PluginInterface
             throw new InvalidConfigException(Exception::ALIPAY_CONFIG_ERROR, 'Missing Alipay Config -- [app_public_cert_path]');
         }
 
-        $cert = file_get_contents($path);
+        $cert = get_public_cert($path);
         $ssl = openssl_x509_parse($cert);
 
         if (false === $ssl) {
@@ -139,7 +140,7 @@ class PreparePlugin implements PluginInterface
         }
 
         $sn = '';
-        $exploded = explode('-----END CERTIFICATE-----', file_get_contents($path));
+        $exploded = explode('-----END CERTIFICATE-----', get_public_cert($path));
 
         foreach ($exploded as $cert) {
             if (empty(trim($cert))) {
