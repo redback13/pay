@@ -26,6 +26,7 @@ use Yansongda\Supports\Str;
  * @method ResponseInterface wap(array $order)      手机网站支付
  * @method ResponseInterface web(array $order)      电脑支付
  * @method Collection        mini(array $order)     小程序支付
+ * @method Collection        complain(array $order)     交易支付投诉处理
  */
 class Alipay extends AbstractProvider
 {
